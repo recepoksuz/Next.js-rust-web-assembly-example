@@ -23,8 +23,7 @@ pub fn greet(name: &str) {
 // Export math functions to JavaScript
 #[wasm_bindgen]
 pub fn add(a: i32, b: i32) -> i32 {
-    // test
-    -11
+    a + b
 }
 
 #[wasm_bindgen]
