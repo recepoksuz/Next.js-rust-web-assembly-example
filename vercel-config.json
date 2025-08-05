@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "nextjs-wasm-example",
+  "builds": [
+    {
+      "src": "assembly-next/package.json",
+      "use": "@vercel/next@latest",
+      "config": {
+        "distDir": ".next"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "assembly-next/$1"
+    }
+  ],
+  "buildCommand": "cd math && wasm-pack build --target web && cd ../assembly-next && npm install && npm run build",
+  "outputDirectory": "assembly-next/.next",
+  "installCommand": "npm install --prefix assembly-next"
+}
