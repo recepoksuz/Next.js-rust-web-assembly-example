@@ -3,17 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd math && wasm-pack build --target web && cd ../assembly-next && npm install && npm run build",
     "build:wasm": "cd math && wasm-pack build --target web",
-    "build:next": "cd assembly-next && npm install && npm run build",
     "dev": "cd assembly-next && npm run dev",
-    "install": "npm install --prefix assembly-next",
-    "postinstall": "npm install --prefix assembly-next"
+    "install:frontend": "cd assembly-next && npm install"
   },
   "engines": {
     "node": ">=18"
-  },
-  "devDependencies": {
-    "@types/node": "^20"
   }
 }

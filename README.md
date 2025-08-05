@@ -276,13 +276,13 @@ Contributions are welcome! Please feel free to submit issues, feature requests, 
 ## Resources
 
 - [WebAssembly Official Site](https://webassembly.org/)
-- [Rust and WebAssembly Book](https://github.io/wasm-pack/)
+- [Rust and WebAssembly Book](https://rustwasm.github.io/docs/book/)
+- [wasm-pack Documentation](https://rustwasm.github.io/wasm-pack/)
 - [Next.js Documentation](https://nextjs.org/docs)
 
 ## Developer
 
 **Recep Öksüz**
-
 - GitHub: [@recepoksuz](https://github.com/recepoksuz)
 
 ---
