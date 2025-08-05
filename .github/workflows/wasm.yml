@@ -1,0 +1,50 @@
+name: Build WebAssembly
+on:
+  push:
+    paths:
+      - 'math/**'
+  workflow_dispatch: # Manual trigger
+  
+jobs:
+  build-wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Rust toolchain
+        run: |
+          curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+          rustup target add wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        run: cargo install wasm-pack
+
+      - name: Build WebAssembly module
+        working-directory: math
+        run: wasm-pack build --release --target web --out-dir pkg
+
+      - name: Copy pkg files to Next.js app
+        run: |
+          rm -rf assembly-next/wasm-pkg
+          mkdir -p assembly-next/wasm-pkg
+          cp -R math/pkg/* assembly-next/wasm-pkg/
+          echo "WASM files copied to assembly-next/wasm-pkg/"
+          ls -la assembly-next/wasm-pkg/
+
+      - name: Commit and push updated WASM files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assembly-next/wasm-pkg
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(wasm): update pkg from math @ ${GITHUB_SHA:0:7}"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

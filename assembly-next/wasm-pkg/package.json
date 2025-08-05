@@ -1,0 +1,15 @@
+{
+  "name": "math",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "math_bg.wasm",
+    "math.js",
+    "math.d.ts"
+  ],
+  "main": "math.js",
+  "types": "math.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

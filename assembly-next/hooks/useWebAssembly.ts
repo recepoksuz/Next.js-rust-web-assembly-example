@@ -32,7 +32,8 @@ export const useWebAssembly = (): UseWebAssemblyReturn => {
   useEffect(() => {
     const loadWasm = async () => {
       try {
-        const wasmModule = await import("math");
+        // Import from the copied wasm-pkg directory
+        const wasmModule = await import("../wasm-pkg");
         await wasmModule.default();
         setMathModule(wasmModule as MathModule);
         setLoading(false);
