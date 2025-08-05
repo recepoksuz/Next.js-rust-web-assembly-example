@@ -122,6 +122,16 @@ export function div(a, b) {
     return ret;
 }
 
+/**
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+export function mod_op(a, b) {
+    const ret = wasm.mod_op(a, b);
+    return ret;
+}
+
 async function __wbg_load(module, imports) {
     if (typeof Response === 'function' && module instanceof Response) {
         if (typeof WebAssembly.instantiateStreaming === 'function') {

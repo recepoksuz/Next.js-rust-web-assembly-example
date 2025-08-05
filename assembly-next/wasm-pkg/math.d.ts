@@ -5,6 +5,7 @@ export function add(a: number, b: number): number;
 export function sub(a: number, b: number): number;
 export function mul(a: number, b: number): number;
 export function div(a: number, b: number): number;
+export function mod_op(a: number, b: number): number;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
@@ -15,6 +16,7 @@ export interface InitOutput {
   readonly sub: (a: number, b: number) => number;
   readonly mul: (a: number, b: number) => number;
   readonly div: (a: number, b: number) => number;
+  readonly mod_op: (a: number, b: number) => number;
   readonly __wbindgen_export_0: WebAssembly.Table;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
