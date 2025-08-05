@@ -94,6 +94,38 @@ await wasmModule.default(); // Initialize WASM
 const result = wasmModule.add(5, 3); // Use Rust function
 ```
 
+## 🚀 Automated CI/CD Pipeline
+
+This project features a fully automated build and deployment pipeline:
+
+### GitHub Actions Workflow
+- **Triggers**: Automatically detects changes in `math/` directory
+- **Build Process**: Installs Rust toolchain and compiles WebAssembly module
+- **Integration**: Copies WASM files to Next.js app (`assembly-next/wasm-pkg/`)
+- **Auto-commit**: Pushes updated WebAssembly binaries to repository
+
+### Vercel Deployment
+- **Seamless Deploy**: Automatically deploys when Next.js code changes
+- **No Rust Required**: Vercel only builds pre-compiled WASM files
+- **Fast Builds**: No runtime Rust compilation needed
+
+### Developer Workflow
+```bash
+# 1. Modify Rust code
+echo "New function" >> math/src/lib.rs
+
+# 2. Push changes
+git add . && git commit -m "Add new feature" && git push
+
+# 3. Everything else is automatic!
+# ✅ GitHub Actions builds WASM
+# ✅ Files copied to Next.js app  
+# ✅ Auto-commit with updated binaries
+# ✅ Vercel deploys updated app
+```
+
+> 📖 **Learn More**: See [`.github/workflows/wasm.yml`](.github/workflows/wasm.yml) for workflow details and [`VERCEL.md`](VERCEL.md) for deployment configuration.
+
 ## Architecture Highlights
 
 ### Custom Hook Pattern
@@ -137,38 +169,51 @@ try {
 ## Getting Started
 
 ### Prerequisites
-
 - **Node.js** 18+ for the frontend
-- **Rust** toolchain for WebAssembly compilation
-- **wasm-pack** for building WebAssembly modules
+- **Rust** toolchain (for local development only)
+- **wasm-pack** for building WebAssembly modules (for local development only)
 
-### Installation
+> 💡 **Note**: Thanks to automated CI/CD, Rust is only needed for local development. Production deployments use pre-built WASM files.
+
+### Quick Start
 
 1. **Clone the repository**
-
    ```bash
    git clone https://github.com/recepoksuz/Next.js-rust-web-assembly-example.git
    cd Next.js-rust-web-assembly-example
    ```
 
-2. **Build the WebAssembly module**
-
-   ```bash
-   cd math
-   wasm-pack build --target web
-   cd ..
-   ```
-
-3. **Install and run the frontend**
-
+2. **Run the application** (WASM files are pre-built)
    ```bash
    cd assembly-next
    npm install
    npm run dev
    ```
 
-4. **Open your browser**
+3. **Open your browser**
    Navigate to `http://localhost:3000`
+
+### Development Workflow
+
+**For Rust changes:**
+```bash
+# 1. Modify Rust code
+vim math/src/lib.rs
+
+# 2. Test locally (optional)
+cd math && wasm-pack build --target web && cd ..
+
+# 3. Push changes - automation handles the rest!
+git add . && git commit -m "Update Rust functions" && git push
+```
+
+**For Next.js changes:**
+```bash
+# Standard Next.js development
+cd assembly-next
+npm run dev
+# Make changes, then push - Vercel auto-deploys!
+```
 
 ## Use Cases for WebAssembly
 
@@ -272,6 +317,20 @@ This example can be extended with:
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+### Automated Testing
+Thanks to our CI/CD pipeline, contributing is straightforward:
+- **Rust changes**: Just modify `math/src/lib.rs` and push - WASM builds automatically
+- **Next.js changes**: Standard React development workflow  
+- **Documentation**: Update and push - changes deploy automatically
+
+## Deployment & CI/CD
+
+This project uses automated pipelines for seamless development and deployment:
+
+- **📋 GitHub Actions**: [`wasm.yml`](.github/workflows/wasm.yml) - Automated WASM compilation
+- **🚀 Vercel Integration**: [`VERCEL.md`](VERCEL.md) - Production deployment guide
+- **🔄 Zero-Config**: Push code → Automated build → Deploy
 
 ## Resources
 
