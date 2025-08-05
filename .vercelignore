@@ -1,4 +1,4 @@
-# Rust build artifacts
+# Rust build artifacts (but keep pkg folder)
 math/target
 
 # Next.js build outputs  
