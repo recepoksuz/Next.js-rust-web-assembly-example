@@ -4,6 +4,10 @@ on:
     paths:
       - 'math/**'
   workflow_dispatch: # Manual trigger
+
+# Add permissions for GitHub Actions
+permissions:
+  contents: write
   
 jobs:
   build-wasm:
@@ -12,7 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          # Use GitHub token with write permissions
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Install Rust toolchain
         run: |
@@ -32,10 +38,16 @@ jobs:
           rm -rf assembly-next/wasm-pkg
           mkdir -p assembly-next/wasm-pkg
           cp -R math/pkg/* assembly-next/wasm-pkg/
+          # Create index.ts for easier imports
+          echo "// Re-export everything from the generated WASM module" > assembly-next/wasm-pkg/index.ts
+          echo "export * from './math';" >> assembly-next/wasm-pkg/index.ts
+          echo "export { default } from './math';" >> assembly-next/wasm-pkg/index.ts
           echo "WASM files copied to assembly-next/wasm-pkg/"
           ls -la assembly-next/wasm-pkg/
 
       - name: Commit and push updated WASM files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -44,7 +56,5 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(wasm): update pkg from math @ ${GITHUB_SHA:0:7}"
-            git push
+            git push origin main
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
