@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "name": "nextjs-rust-webassembly",
-  "buildCommand": "cd math && wasm-pack build --target web && cd ../assembly-next && npm install && npm run build",
-  "outputDirectory": "assembly-next/.next",
-  "installCommand": "cd assembly-next && npm install",
-  "framework": null,
   "builds": [
     {
       "src": "assembly-next/package.json",
@@ -13,11 +8,10 @@
   ],
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/.*",
-      "dest": "/assembly-next"
+      "dest": "assembly-next/$1"
     }
-  ]
+  ],
+  "buildCommand": "curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh && cd math && wasm-pack build --target web && cd ../assembly-next && npm install && npm run build",
+  "installCommand": "npm install --prefix assembly-next"
 }
