@@ -36,7 +36,7 @@ export const useWebAssembly = (): UseWebAssemblyReturn => {
         // Import from the copied wasm-pkg directory
         const wasmModule = await import("../wasm-pkg");
         await wasmModule.default();
-        setMathModule(wasmModule as MathModule);
+        setMathModule(wasmModule as unknown as MathModule);
         setLoading(false);
       } catch (err) {
         setError(`${MESSAGES.ERROR_LOAD}: ${err}`);
