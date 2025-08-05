@@ -24,7 +24,7 @@ pub fn greet(name: &str) {
 #[wasm_bindgen]
 pub fn add(a: i32, b: i32) -> i32 {
     // test
-    -1
+    -11
 }
 
 #[wasm_bindgen]
