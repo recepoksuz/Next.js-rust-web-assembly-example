@@ -27,6 +27,7 @@ export const useWebAssembly = (): UseWebAssemblyReturn => {
     sub: 0,
     mul: 0,
     div: 0,
+    mod: 0,
   });
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export const useWebAssembly = (): UseWebAssemblyReturn => {
       sub: mathModule.sub(a, b),
       mul: mathModule.mul(a, b),
       div: mathModule.div(a, b),
+      mod: mathModule.mod_op(a, b),
     });
 
     mathModule.greet(MESSAGES.GREET_USER);

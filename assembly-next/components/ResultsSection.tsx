@@ -10,7 +10,7 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => (
       📊 Results
     </h2>
 
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
       <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200 shadow-md hover:shadow-lg transition-all duration-200">
         <h3 className="text-sm font-bold text-green-800 mb-2 uppercase tracking-wide">
           ➕ Addition
@@ -37,6 +37,13 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => (
           ➗ Division
         </h3>
         <p className="text-3xl font-bold text-orange-700">{results.div}</p>
+      </div>
+
+      <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200 shadow-md hover:shadow-lg transition-all duration-200 md:col-span-1 col-span-2">
+        <h3 className="text-sm font-bold text-red-800 mb-2 uppercase tracking-wide">
+          📐 Modulus
+        </h3>
+        <p className="text-3xl font-bold text-red-700">{results.mod}</p>
       </div>
     </div>
   </div>

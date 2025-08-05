@@ -4,6 +4,7 @@ export interface MathModule {
   sub: (a: number, b: number) => number;
   mul: (a: number, b: number) => number;
   div: (a: number, b: number) => number;
+  mod_op: (a: number, b: number) => number;
 }
 
 export interface CalculationResults {
@@ -11,6 +12,7 @@ export interface CalculationResults {
   sub: number;
   mul: number;
   div: number;
+  mod: number;
 }
 
 export interface CalculatorInputs {

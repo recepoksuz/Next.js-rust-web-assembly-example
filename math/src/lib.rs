@@ -44,3 +44,12 @@ pub fn div(a: i32, b: i32) -> i32 {
     }
     a / b
 }
+
+#[wasm_bindgen]
+pub fn mod_op(a: i32, b: i32) -> i32 {
+    if b == 0 {
+        console_log!("Warning: Modulus by zero!");
+        return 0;
+    }
+    a % b
+}
